@@ -1,0 +1,56 @@
+% biography section
+% 
+% If you have an EPS/PDF photo (graphicx package needed) extra braces are
+% needed around the contents of the optional argument to biography to prevent
+% the LaTeX parser from getting confused when it sees the complicated
+% \includegraphics command within an optional argument. (You could create
+% your own custom macro containing the \includegraphics command to make things
+% simpler here.)
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
+% or if you just want to reserve a space for a photo:
+%\newpage
+\vspace{-0.5 cm}
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{photos/renaud.jpg}}]{Luke Renaud}
+%\begin{IEEEbiographynophoto}{Luke Renaud}
+(S’13) received the B.S. in Electrical Engineering \textit{summa cumme laude} with a from Washington State University in Pullman, WA in 2013. He is currently pursuing a Ph.D. in RF Microelectronics from Washington State University, Pullman, WA.
+
+If you're reading this paragraph as a reviewer, then the person who submit the paper has forgotten to remove my template BIO from their document. You really should reject their paper, that's pretty sloppy.
+%\end{IEEEbiographynophoto}
+\vspace{-0.8 cm}
+\end{IEEEbiography}
+
+%\vfill
+
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{photos/ylabmate}}]{Your Labmate}
+\begin{IEEEbiographynophoto}{Your Labmate}
+Bio paragraph
+\end{IEEEbiographynophoto}
+%\end{IEEEbiography}
+%\vspace{-0.8 cm}
+
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{photos/yprof}}]{Your Professor}
+\begin{IEEEbiographynophoto}{Your Professor}
+Bio paragraph
+\end{IEEEbiographynophoto}
+%\end{IEEEbiography}
+
+% insert where needed to balance the two columns on the last page with
+% biographies
+%\newpage
+
+%\begin{IEEEbiographynophoto}{Jane Doe}
+%Biography text here.
+%\end{IEEEbiographynophoto}
+
+% You can push biographies down or up by placing
+% a \vfill before or after them. The appropriate
+% use of \vfill depends on what kind of text is
+% on the last page and whether or not the columns
+% are being equalized.
+
+\vfill
+
+% Can be used to pull up biographies so that the bottom of the last one
+% is flush with the other column.
+%\enlargethispage{-5in}

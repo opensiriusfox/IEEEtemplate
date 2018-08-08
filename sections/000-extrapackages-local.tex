@@ -1,0 +1,24 @@
+%
+% A few random packages that I think are particularly useful.
+%
+
+\usepackage{gensymb} % for \degree, etc.
+\usepackage{xspace} % to fix \degree eating a space
+% Redefine \degree to not eat a space based upon the \xspace package
+\AtBeginDocument{%
+	\let\OLDdegree\degree%
+	\renewcommand{\degree}{\OLDdegree{}\xspace}%
+}
+
+
+\usepackage{xcolor} % for inkscape figures
+
+% This handles warnings related to using the \input command on PDFs generated
+% by inkscape's SVG->TEX conversion tool.
+\pdfsuppresswarningpagegroup=1
+
+% My mangled attempt at figuring out how to make footnotes place nicely with
+% tables.
+\usepackage{footnote}
+\makesavenoteenv{tabular}
+\makesavenoteenv{table}

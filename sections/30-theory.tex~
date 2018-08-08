@@ -1,0 +1,78 @@
+\section{Proposed Circuit}
+\begin{figure}[t!]
+\centering
+%\missingfigure[figwidth=3.5in]{LS Schematic}
+\includegraphics{schematic_true}
+\caption{Schematic diagram of the proposed envelope detector.}
+\label{fig:true_schematic}
+\end{figure}
+The proposed circuit in a single-ended topology is shown in Fig. \ref{fig:true_schematic}. The circuit is comprised of a single input device (M1) driving a quarter wavelength transmission line, and a resistive load. The operation of the device can conceptually be described by conceptualizing the system to transient respones to the positive and negative halves of an input sinusoid. As the inital rising edge drives the system, the transistor will produce a coresponding current pulse into the transmission line and the load element. This pulse will travel down the transmission line, and reflect at the open termination of the line with a total flight time one half that of the pulse/RF period. As such, when the input waveform falls back to it's midpoint level and begins to fall, it will produce an inverted pulse with oposing ampliutde to the pulse now returning from the transmission line. The superposition of these two currents is regestered across the output load and reduces or eleminates (in the extreme ideal) the fundemental component of this waveform. This results in baseband information being produced at the drain node of the driving device, as well as even harmonics of the fundemental carrier where the transmission line behaves as an open circuit.
+
+As the system is fundementally a filtering operation we desire to bias the device near threshold, or below threshold to both minimize DC power consumption, as well as to maximize the non-linearity of the device. In this paper ideal class-B biasing will be assumed in the mathematical formulation.
+
+%%------------------------------------------------------------------------%%
+%%------------------------------------------------------------------------%%
+\subsection{Small Signal Modeling}
+To better understand the proposed circuit's performance limitations, consider the small signal equivelent circuit presented shown in Fig. \ref{fig:ss_schematic}. First constrain modeling of this system to the behavior at the drain node of the input device. It is assumed that the equivelent input impedance for the circuit will be appropreatly matched from an LNA preceding the circuit to maximize the voltage swing at the device's gate node. Under this assumption the equivelent model for the circuit is described by the equivelent admitance terms at the drain node: M1's transconductance ($g_m$); the drain node capacitance consisting of M1's $C_{ds}$, as well as any load capacitance from a baseband amplifier; M1's output condutance $g_o$; and, the load resistance/conductance $G_L$.
+
+\begin{figure}[t!]
+\centering
+%\missingfigure[figwidth=3.5in]{SS Schematic}
+\includegraphics{schematic_smallsig}
+\caption{Simplified small signal model.}
+\label{fig:ss_schematic}
+\end{figure}
+
+Using the conventional model for a lossless transmission line, the voltage gain of the stage is described as (\ref{eqn:ssGain1}), where $C_D$ represents the total capacitance at the drain node, and $Y_0$ represents the characteristic admitance of the transmission line.
+
+\begin{IEEEeqnarray}{rCl}
+G_V = \frac{V_g}{V_d} = \frac{-g_m}{(g_o + G_L) + jY_0 tan(\beta l) + j\omega C_{D}}
+\label{eqn:ssGain1}
+\end{IEEEeqnarray}
+
+To generalize the analysis $\beta l$ can further be re-expressed in terms of a fraction of the electrical length as in (\ref{eqn:ssGain2}), allowing for ease in evaluating the function at harmonics, as well as producing a baseband description of the gain. From this analysis the peak gain as (\ref{eqn:ssGain2_peak}), and evaluating (\ref{eqn:ssGain2_3dB}) provides the 3dB bandwidth.
+
+\begin{IEEEeqnarray}{rCl}
+G_V = \frac{-g_m}{(g_o + G_L) + jY_0 tan(\frac{\pi}{2} \frac{\omega}{\omega_0}) + j\omega C_{D}}
+\label{eqn:ssGain2}
+\end{IEEEeqnarray}
+
+\begin{IEEEeqnarray}{rCl}
+G_{V,peak} = \frac{-g_m}{(g_o + G_L)}
+\label{eqn:ssGain2_peak}
+\end{IEEEeqnarray}
+
+\begin{IEEEeqnarray}{rCl}
+(g_o + G_L) = Y_0 tan(\frac{\pi}{2} \frac{\omega_{3dB}}{\omega_0}) + \omega_{3dB} C_{D}
+\label{eqn:ssGain2_3dB}
+\end{IEEEeqnarray}
+
+% Useful for later
+\if{false}
+\begin{IEEEeqnarray}{rCl}
+(g_o + G_L) \sqrt{\frac{1 - \alpha^2}{\alpha^2}} = Y_0 tan(\frac{\pi}{2} \frac{\omega}{\omega_0}) + \omega C_{D}
+\label{eqn:ssGain2_ArbDB}
+\end{IEEEeqnarray}
+\fi
+
+%%------------------------------------------------------------------------%%
+%%------------------------------------------------------------------------%%
+\subsection{Numerical Evaluation}
+To evaluate the feasability of this structure a simple numerical evaluation of the proposed circuit is performed. Fig. \ref{fig:matlab_GainBWvRL} shows the evaluated 3dB bandwidth, and low frequency gain for the proposed circuit. The evaluation assumes operation of a 90GHz carrier, with an estimated 10fF total drain node capacitance, 50$\Omega$ transmission line, a nominal $g_m$ of 3.5$mS$, as a function of the load resistance. 
+
+\begin{figure}[t!]
+\centering
+%\missingfigure[figwidth=3.5in]{SS Schematic}
+\includegraphics{matlab/figures/GainBWvRL}
+\caption{Numerically evaulated gain, and 3dB bandwidth.}
+\label{fig:matlab_GainBWvRL}
+\end{figure}
+
+
+\begin{figure}[b!]
+\centering
+%\missingfigure[figwidth=3.5in]{SS Schematic}
+\includegraphics{matlab/figures/gainTheory_dual}
+\caption{CAPTION.}
+\label{fig:matlab_gainTheory_dual}
+\end{figure}

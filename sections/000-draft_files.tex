@@ -1,0 +1,99 @@
+%
+% This document is used to setup the flags we use to remove/show bits of the
+% paper when writing working drafts.
+%
+
+\newif\ifLPRfmtDRAFT
+\newif\ifLPRfmtHIGHLIGHTS
+\newif\ifLPRfmtNOAUTH
+
+% use to do disable/enable sections of text
+\newif\ifNO
+\newif\ifYES
+\YEStrue
+
+%%%%%
+% Control Flags
+%%%%%
+% Comment these lines to change the behavior of the markup generation.
+%
+% Description:
+%   fmtHIGHLITS controls the appearance of \editB, \editR, etc.
+%       true => colored text, false => default black text
+%   fmtNOAUTH disables and enables authors in both the title and afterward
+%       true => authors hidden, false => authors visible
+%   fmtDRAFT
+%       true => \todo items visible in expanded page margins
+%       false => \todo notes stripped, document width unchanged
+%%%%%
+\LPRfmtHIGHLIGHTStrue
+%\LPRfmtNOAUTHtrue
+\LPRfmtDRAFTtrue
+
+
+\ifLPRfmtDRAFT
+	%\usepackage{showframe} % used if you want to show outlines on the page margins
+
+	\usepackage[colorinlistoftodos]{todonotes}
+	% For color box on final page of self notes.
+	\usepackage{mdframed}
+	\usepackage{scrtime}
+	\usepackage{soul}
+
+	% Formating decisions for the TODO notes stuff that ends up at the end of the paper.
+	\mdfdefinestyle{notesstyle}{%
+		linecolor=red,frametitlerule=true,
+		backgroundcolor=red!15}
+	\mdfdefinestyle{outlinestyle}{%
+		linecolor=green,frametitlerule=true,
+		backgroundcolor=green!15}
+	
+	%\presetkeys{todonotes}{color=green!30, linecolor=red!90, size=\small, figwidth=3.4in}{}
+	%\setlength{\marginparwidth}{1.4cm}
+
+	\presetkeys{todonotes}{color=blue!15, linecolor=red!90, size=\footnotesize, figwidth=3.4in}{}
+	\setlength{\marginparwidth}{0.8in}	% new margin size
+	\setlength{\marginparpush}{0in}		% spacing between margin notes
+	\addtolength{\paperwidth}{\marginparwidth}	% make the page bigger for the margins
+	\addtolength{\hoffset}{0.5\marginparwidth}	% and make the page symetric for the margin
+	
+	\makeatletter
+	\if@todonotes@disabled
+		\newcommand{\hlfix}[2]{#1}
+	\else
+		\newcommand{\hlfix}[2]{\texthl{#1}\todo{#2}{}}
+	\fi
+	\makeatother
+\else
+	\makeatletter
+	\newcommand{\hlfix}[2]{{}}
+	\newcommand{\todo}[1]{{}}
+	\makeatother
+\fi
+
+
+\ifLPRfmtHIGHLIGHTS
+	\colorlet{editColorBlue}{blue!100!}
+	\colorlet{editColorRed}{red!100!}
+	\definecolor{editColorGreen}{RGB}{0,127,0}
+	\definecolor{editColorRedRed}{RGB}{192,0,128}
+	\definecolor{editColorBlueBlue}{RGB}{0,96,192}
+	
+	\newcommand{\editB}[1]{{\color{editColorBlue}#1}}
+	\newcommand{\editR}[1]{{\color{editColorRed}#1}}
+	\newcommand{\editG}[1]{{\color{editColorGreen}#1}}
+	\newcommand{\editBB}[1]{{\color{editColorBlueBlue}#1}}
+	\newcommand{\editRR}[1]{{\color{editColorRedRed}#1}}
+
+	\newcommand{\dummy}[1][cite]{\cite{FooBar}\todo{#1}\xspace}
+\else
+	\newcommand{\editB}[1]{#1}
+	\newcommand{\editR}[1]{#1}
+	\newcommand{\editG}[1]{#1}
+	\newcommand{\editBB}[1]{#1}
+	\newcommand{\editRR}[1]{#1}
+	\newcommand{\dummy}[1][cite]{\cite{FooBar}\todo{#1}\xspace}
+	%\newcommand{\dummy}[1][CITE]{\texthl{!!}\cite{FooBar}\texthl{!!}\todo{#1}\xspace}
+\fi
+
+
